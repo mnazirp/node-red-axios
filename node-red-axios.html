@@ -1,0 +1,42 @@
+<script type="text/javascript">
+  RED.nodes.registerType('node-red-axios',{
+      category: 'customs',
+      color: '#03a9f4',
+      defaults: {
+          name: {value:""}
+      },
+      inputs:1,
+      outputs:1,
+      icon: "font-awesome/fa-cogs",
+      label: function() {
+          return this.name||"node-red-axios";
+      }
+  });
+</script>
+
+<script type="text/html" data-template-name="node-red-axios">
+  <div class="form-row">
+      <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+      <input type="text" id="node-input-name" placeholder="Name">
+  </div>
+</script>
+
+<script type="text/html" data-help-name="node-red-axios">
+  <p>A simple node fetch data using Axios for http-request with options: </p>
+  
+  <code>{</code>
+  <code>    method: 'GET | POST | PUT | DELETE',</code>
+  <code>    url: 'strinf of url endpoint',</code>
+  <code>    headers: 'http header array',</code>
+  <code>    data: 'optional to set parameter for POST',</code>
+  <code>    auth: {</code>
+  <code>      username: 'string',</code>
+  <code>      password: 'string'</code>
+  <code>    },</code>
+  <code>    proxy: {</code>
+  <code>      host: 'SRTING',</code>
+  <code>      port: 'number',</code>
+  <code>      auth: '{username: xxxx, password: xxxx}'</code>
+  <code>    }</code>
+  <code>}</code>
+</script>

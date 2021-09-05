@@ -1,0 +1,15 @@
+{
+  "name": "node-red-axios",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "mnazirp <mnazirp@gmail.com>",
+  "node-red": {
+    "nodes": {
+      "node-red-axios": "node-red-axios.js"
+    }
+  },
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
+}
