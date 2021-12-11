@@ -21,7 +21,7 @@ module.exports = function (RED) {
         }).then(res => {
           msg.payload = res.data;
           msg.response = res;
-          node.send({msg});
+          node.send(msg);
         }).catch(err => {
           node.error(`fetching data failed: ${err.message}`);
         })
