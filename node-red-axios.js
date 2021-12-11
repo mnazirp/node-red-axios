@@ -20,7 +20,8 @@ module.exports = function (RED) {
           proxy: msg.options.proxy ? msg.options.proxy : null
         }).then(res => {
           msg.payload = res.data;
-          node.send(msg);
+          msg.response = res;
+          node.send({msg});
         }).catch(err => {
           node.error(`fetching data failed: ${err.message}`);
         })
