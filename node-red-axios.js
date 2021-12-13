@@ -24,7 +24,8 @@ module.exports = function (RED) {
           node.send(msg);
         }).catch(err => {
           node.error(`fetching data failed: ${err.message}`);
-          node.send(err);
+          msg.error = err.message;
+          node.send(msg);
         })
       } else {
         node.error('Node Options is not set !!');
