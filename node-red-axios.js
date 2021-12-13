@@ -6,25 +6,29 @@ module.exports = function (RED) {
     var node = this;
     node.on('input', function (msg) {
       if (msg.options && msg.options.url && msg.options.method) {
-        let url = msg.options.url;
-        if(msg.options.params){
-          let p = new URLSearchParams({...msg.options.params}).toString();
-          url = `${url}?${p}`;
+        try {
+          let url = msg.options.url;
+          if (msg.options.params) {
+            let p = new URLSearchParams({ ...msg.options.params }).toString();
+            url = `${url}?${p}`;
+          }
+          axios({
+            method: msg.options.method,
+            url: (msg.options.decode) ? decodeURI(url) : url,
+            headers: msg.options.headers ? msg.options.headers : null,
+            data: msg.options.data ? msg.options.data : null,
+            auth: msg.options.auth ? msg.options.auth : null,
+            proxy: msg.options.proxy ? msg.options.proxy : null
+          }).then(res => {
+            msg.payload = res.data;
+            msg.response = res;
+            node.send(msg);
+          }).catch(err => {
+            node.error(`fetching data failed: ${err.message}`);
+          })
+        }catch(err){
+          node.error(err);
         }
-        axios({
-          method: msg.options.method,
-          url: (msg.options.decode) ? decodeURI(url) : url,
-          headers: msg.options.headers ? msg.options.headers : null,
-          data: msg.options.data ? msg.options.data : null,
-          auth: msg.options.auth ? msg.options.auth : null,
-          proxy: msg.options.proxy ? msg.options.proxy : null
-        }).then(res => {
-          msg.payload = res.data;
-          msg.response = res;
-          node.send(msg);
-        }).catch(err => {
-          node.error(`fetching data failed: ${err.message}`);
-        })
       } else {
         node.error('Node Options is not set !!');
       }
