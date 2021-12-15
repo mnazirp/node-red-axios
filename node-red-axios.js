@@ -24,7 +24,7 @@ module.exports = function (RED) {
           node.send(msg);
         }).catch(err => {
           node.error(`fetching data failed: ${err.message}`);
-          msg.error = err.message;
+          msg.error = err;
           node.send(msg);
         })
       } else {
