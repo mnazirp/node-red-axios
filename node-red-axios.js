@@ -11,6 +11,7 @@ module.exports = function (RED) {
           let p = new URLSearchParams({ ...msg.options.params }).toString();
           url = `${url}?${p}`;
         }
+        msg.startTime = new Date();
         axios({
           method: msg.options.method,
           url: (msg.options.decode) ? decodeURI(url) : url,
@@ -21,10 +22,12 @@ module.exports = function (RED) {
         }).then(res => {
           msg.payload = res.data;
           msg.response = res;
+          msg.finishTime = new Date();
           node.send(msg);
         }).catch(err => {
           node.error(`fetching data failed: ${err.message}`);
           msg.error = err;
+          msg.finishTime = new Date();
           node.send(msg);
         })
       } else {
